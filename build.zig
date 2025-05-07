@@ -1,15 +1,29 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) void {
-    _ = b.addModule("zlm", .{
+    // Options
+
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+
+    // Library
+
+    _ = b.createModule(.{
         .root_source_file = b.path("src/zlm.zig"),
+        .target = target,
+        .optimize = optimize,
     });
 
-    const test_exe = b.addTest(.{
+    // Testing
+
+    const lib_tests = b.addTest(.{
         .root_source_file = b.path("src/test.zig"),
+        .target = target,
+        .optimize = optimize,
     });
 
-    const test_run = b.addRunArtifact(test_exe);
+    const run_unit_tests = b.addRunArtifact(lib_tests);
 
-    b.getInstallStep().dependOn(&test_run.step);
+    const test_step = b.step("test", "Run unit tests");
+    test_step.dependOn(&run_unit_tests.step);
 }

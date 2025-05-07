@@ -1,7 +1,7 @@
 # zlm
-Zig linear mathemathics library.
+Zig linear mathematics library.
 
-Current provides the following types:
+Currently provides the following types:
 
 - `Vec2`
 - `Vec3`

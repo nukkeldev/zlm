@@ -8,7 +8,7 @@ pub fn build(b: *std.Build) void {
 
     // Library
 
-    _ = b.createModule(.{
+    _ = b.addModule("zlm", .{
         .root_source_file = b.path("src/zlm.zig"),
         .target = target,
         .optimize = optimize,
